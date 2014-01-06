@@ -3,7 +3,7 @@
       FacebookのPokeが大好きなボク達は驚いた。
       普段使ってるTwitterにPokeが無いことに。
       
-FacebookのPokeが好きでムシャクシャして作った、後悔はない。公開はしてる。[Open](tuntun.herokuapp.com)
+FacebookのPokeが好きでムシャクシャして作った、後悔はない。公開はしてる。[Open](http://tuntun.herokuapp.com)
   
   
 ## できること
