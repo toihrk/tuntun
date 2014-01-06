@@ -1,0 +1,64 @@
+.jumbotron
+  .container
+    %p
+      FacebookのPokeが大好きなボク達は驚いた。
+    %p
+      普段使ってるTwitterにPokeが無いことに。
+    - if user_signed_in?
+      %small
+        = "@#{current_user.name}としてログインしています。"
+    %p
+      - if user_signed_in?
+        .pull-right
+          = link_to "ログアウト", destroy_user_session_path, class: "btn btn-danger"
+      - else
+        = link_to "Twitterでログイン", user_omniauth_authorize_path(:twitter), class: "btn btn-primary btn-lg"
+
+
+- if user_signed_in?
+  .well
+    .container
+      = form_for(@poke, html:{class: "", role: "form"}) do |f|
+        .form-group
+          %label.sr-only(for="poke_target")Target User
+          .input-group
+            %span.input-group-addon @
+            = f.text_field :target, class: "form-control", placeholder: "Username"
+        .form-group
+          %label.sr-only(for="poke_message")Message
+          = f.text_area :message,  disabled: "", class: "form-control", placeholder: "Coming soon!"
+        %label.sr-only(for="poke") Time
+        .row
+          .col-xs-3
+            .input-group
+              = f.number_field :time, disabled: "", class: "form-control"
+              %span.input-group-addon sec
+
+        .pull-right
+          = f.submit "つんつん", class: "btn btn-primary btn-large"
+
+
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title つんつん
+    %ul.list-group
+      - @pokes.each do |poke|
+        %li.list-group-item
+          - if current_user.id == poke.target.id
+            %i.glyphicon.glyphicon-hand-right
+            = link_to "@#{poke.author.name}", "http://twitter.com/#{poke.author.name}"
+            につんつんされました。
+            (#{time_ago_in_words poke.created_at}前)
+            .pull-right
+
+              %a(href="#{reply_poke_path(poke.id)}")
+                %i.glyphicon.glyphicon-share-alt
+                Reply
+          - else
+            %i.glyphicon.glyphicon-hand-left
+            = link_to "@#{poke.target.name}", "http://twitter.com/#{poke.target.name}"
+            につんつんしました。
+            (#{time_ago_in_words poke.created_at}前)
+
+
+      

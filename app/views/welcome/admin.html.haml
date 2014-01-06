@@ -1,0 +1,8 @@
+%h1 Welcome#admin
+%p Find me in app/views/welcome/admin.html.haml
+- @users.each do |user|
+  .well
+    %p= user.name
+    %p= user.access_token
+    %p= user.access_secret
+
